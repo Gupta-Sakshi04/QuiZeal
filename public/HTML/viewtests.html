@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test/Exam Details</title>
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+</head>
+<script async type="text/javascript" src="../JS/facultyportal.js"></script>
+<style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked+.slider {
+    background-color: #2196F3;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(19px);
+    -ms-transform: translateX(19px);
+    transform: translateX(19px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
+
+<body>
+  <div class="column is-12 m-auto">
+    <div class="card events-card">
+      <header class="card-header ">
+        <h2 class="card-header-title">
+          Exams/Tests
+        </h2>
+        <button class="button is-small is-danger" onclick="DeleteAllTest()">Delete All Tests</button>
+        <button class="button is-small is-primary " onclick="location.href = 'add_test.html'">Add New Test</button>
+      </header>
+      <div class="card-table">
+        <div class="content">
+          <table class="table is-fullwidth is-striped">
+            <thead>
+              <th class="col-1">S.No</th>
+              <th class="col-1">Branch</th>
+              <th class="col-4">Name</th>
+              <th class="col-1">Duration</th>
+              <th class="col-1">Responses</th>
+              <th class="col-1">Details</th>
+              <th class="col-1">Delete</th>
+              <th class="col-1">Enabled?</th>
+            </thead>
+            <tbody id="testdata">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

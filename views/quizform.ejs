@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Customer Satisfaction Survey</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      line-height: 28px;
+      }
+      h1 {
+      font-weight: 400;
+      }
+      h4 {
+      margin: 25px 0 5px;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px #ccc; 
+      }
+      input {
+      width: auto;
+      margin-right: 15px;
+      vertical-align: middle;
+      }
+      .question-answer label {
+      display: block;
+      }
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      textarea:hover {
+      outline: none;
+      border: 1px solid #095484;
+      }
+      .btn-block {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      outline: none;
+      -webkit-border-radius: 5px; 
+      -moz-border-radius: 5px; 
+      border-radius: 5px; 
+      background-color: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+    </style>
+    <%
+    var hrs = userData.duration.hours;
+    var min = userData.duration.minutes;
+    var sec = userData.duration.seconds;
+    var seconds = (hrs*3600) + (min*60) + (sec);
+    %>
+  <script>
+    setTimeout(counter,1000);
+    function counter()
+    {   
+        var x = '<%= seconds %>'
+        countDown();
+        function countDown()
+        {
+            let h = parseInt(x/3600);
+            let m = parseInt((x%3600)/60);
+            let s = (x%3600)%60;
+            document.getElementById("remain").innerHTML=h+':'+m+':'+s;
+            if(x>0)
+            {
+                x=x - 1;
+                setTimeout(countDown,1000);
+            }
+            if(x == 0)
+            {
+                document.getElementById("test_id").click();
+            }
+        }
+    }
+  </script>
+  <script type="text/javascript">
+    function disableBack() { window.history.forward(); }
+    setTimeout("disableBack()", 0);
+    window.onunload = function () { null };
+</script>
+<script>
+  $(window).on('popstate', function(event) {
+ return false;
+});
+</script>
+<script>
+  document.onkeydown = function(){
+  switch (event.keyCode){
+        case 116 : //F5 button
+            event.returnValue = false;
+            event.keyCode = 0;
+            return false;
+        case 82 : //R button
+            if (event.ctrlKey){ 
+                event.returnValue = false;
+                event.keyCode = 0;
+                return false;
+            }
+    }
+}
+</script>
+<!-- <script>
+  history.pushState(null, null, document.URL);
+   window.addEventListener('popstate', function () {
+   history.pushState(null, null, document.URL);
+});
+</script> -->
+<script>
+  function onFunction() {
+    alert ("Your browser is working online.");
+  }
+  
+  function offFunction() {
+    alert ("Your browser is working offline.");
+  }
+  </script>
+  </head>
+  <body ononline="onFunction()" onoffline="offFunction()" id="bod">
+    <div class="testbox">
+      <form action="" method="POST" id="test_id">
+        <div>
+            <h2 style="display:none;" id="uid" value='<%= seconds %>'><%=seconds %></h2>
+            <script>
+                counter();
+            </script>
+        </div>
+        <div>
+            <!-- <h3 id="remain"></h3> -->
+        </div>
+        <div>
+          <h1><%=userData.name%></h1>
+          <h3 id="remain"></h3>
+        </div>
+        <% var orgn = {} %>
+        <%
+        if(userData.instructions != ""){
+        %>
+        <h3><%=userData.instructions%></h3>
+        <% } %>
+        <div>
+             <%  userData.questions.forEach(function(data) { %>
+              <h4 > <%=data.question%> </h4>
+              <div class="question-answer">
+                <%
+                let pp = data.id
+                orgn[pp] = data.answer
+                data.answers.forEach(function(ans){ 
+                %>
+                  <label><input type="radio" value='<%=ans.option%>' name='<%=data.id%>'/><%=ans.option%></label>
+                <% }) %>
+            </div>
+          <%  }) %>    
+      </div>
+        <div class="btn-block">
+          <button type="submit" id="sub_btn">Submit</button>
+          <p id="demo"></p>
+        </div>
+      </form>
+    </div>
+    
+    <script>
+    function getFormData(object) {
+    const formd = new FormData();
+    Object.keys(object).forEach(key => formd.append(key, object[key]));
+    return formd;}
+    </script>
+
+    <script>
+      const form = document.forms[0];
+      var arr = []
+      var countermks = 0;
+      var cum = '<%- JSON.stringify(orgn) %>'
+      var c = JSON.parse(cum)
+      form.addEventListener('submit',(event) => 
+      {
+        event.preventDefault();
+        const formData = new FormData(form);
+        for (const formElement of formData) {
+          // let val = `{ "${formElement[0]}" : "${formElement[1]}" }`;
+          let val = `{ "questionId": "${formElement[0]}" , "anschosen": "${formElement[1]}" }`;
+          let temp = JSON.parse(val)
+          console.log(temp)
+          arr.push(temp)
+          var yu = formElement[0]
+          if(c[yu]==formElement[1])
+          countermks++;
+        }
+        // console.log(arr)
+        // console.log(countermks)
+        var obj = {
+        "stuid": '<%=user.id%>',
+        "testId": '<%=userData.id%>',
+        "rollNumber": '<%=user.rollNumber%>',
+        "name": '<%=userData.name%>',
+        "branch": '<%=user.branch%>',
+        "marks": countermks,
+        "responses": arr
+      }
+      // obj["responses"] = arr;
+      // var bod = await getFormData(obj)
+      console.log(obj["responses"])
+    // const formd = new FormData();
+    // Object.keys(obj).forEach(key => formd.append(key, obj[key]));
+    // console.log(formd)
+
+      var result = fetch('/api/response/', {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+      })
+      .then(response => {
+        location.href = "/stuhome"
+      }) 
+    .catch(err => console.log('Request Failed', err));
+      });
+    </script>
+  </body>
+</html>

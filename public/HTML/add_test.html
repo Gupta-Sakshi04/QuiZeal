@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Tests</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+    <script src="../JS/jquery-1.8.2.min.js"></script>
+</head>
+
+<body>
+    <div class="column is-12 m-auto">
+        <div class="card events-card">
+            <header class="card-header ">
+                <h2 class="card-header-title">
+                    Add New Test
+            </header>
+            <div class="card-table">
+                <div class="content p-3">
+                    <form action="" id="add_test" name="New-TestForm">
+                        <div class="form-group">
+                            <input class="form-control-sm" type="text" name="name" placeholder="Name" required>
+                            <input class="form-control-sm" type="text" name="branch" placeholder="Branch" readonly
+                                required>
+                            <input class="form-control-sm" type="number" name="hours" placeholder="Duration(hrs)"
+                                required>
+                            <input class="form-control-sm" type="number" name="minutes" placeholder="Duration(minutes)"
+                                required>
+                            <input class="form-control-sm" type="number" name="seconds" placeholder="Duration(Seconds)"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" id="instruct" name="Instructions" placeholder="Instructions"
+                                rows="3"></textarea>
+                        </div>
+                        <div id="appended">
+                        </div>
+                        <div class="form-group">
+                            <a class=" btn rounded bg-dark text-white" data-toggle="modal" data-target="#quesModal">Add Question</a>
+                        </div>
+                        <div id="error_test" class="text-danger"></div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input class="btn btn-primary" type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for add question starts here-->
+    <div id="quesModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Ques</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="add_ques" name="add-ques-form">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <textarea class="form-control" name="question" placeholder="question"
+                                    rows="2" required></textarea>
+                            </div>
+                            <div class="form-group" id="options">
+                                <div class="form-group" id="list"></div>
+                                <div class="form-group">
+                                    <input class="form-control-sm" type="text" name="answers" id='option'
+                                        placeholder="option">
+                                </div>
+                            </div>
+                            <a class="rounded btn bg-dark text-white" onclick=addOption()>Add Option</a>
+                            <div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control-sm" type="text" name="answer" placeholder="Correct Answer"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="explanation" placeholder="explanation"
+                                    rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div id="error_test" class="text-danger"></div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input class=" btn btn-primary" type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal of add question ends-->
+</body>
+<script src="../JS/jquery-1.8.2.min.js"></script>
+  <script src="../JS/bootstrap.min.js"></script>
+<script src="../JS/addtest.js"></script>
+
+</html>

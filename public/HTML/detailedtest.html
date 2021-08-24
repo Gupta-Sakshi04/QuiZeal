@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="column is-12 m-auto">
+    <div class="card events-card">
+      <header class="card-header align-content-center">
+        <h3 class="card-header-title" id="headd">
+        </h3>
+        <table>
+          <tbody>
+            <tr>
+              <td><a class="button is-small is-primary" data-toggle="modal" data-target="#quesModal">Add Question</a>
+              </td>
+            </tr>
+            <tr>
+              <td><a class="button is-small is-danger" onclick="ClearTest()">Clear All Questions</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div id="duration"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </header>
+      <div class="card-table">
+        <div class="content">
+          <table class="table is-fullwidth is-striped">
+            <tbody id="quesdata">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--modal for add question starts here-->
+  <div id="quesModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Ques</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form action="" id="add_ques" name="add-ques-form" onsubmit="handleSubmit()">
+            <div class="form-group">
+              <div class="form-group">
+                <textarea class="form-control" name="question" placeholder="question" rows="2" required></textarea>
+              </div>
+              <div class="form-group" id="options">
+                <div class="form-group" id="list"></div>
+                <div class="form-group">
+                    <input class="form-control-sm" type="text" name="answers" id='option'
+                        placeholder="option">
+                </div>
+            </div>
+              <button class="rounded bg-dark text-white" onclick = addOption()>Add Option</button>
+              <div class="form-group">
+              </div>
+              <div class="form-group">
+                <input class="form-control-sm" type="text" name="answer" placeholder="Correct Answer" required>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="explanation" placeholder="explanation" rows="2"></textarea>
+              </div>
+            </div>
+            <div id="error_test" class="text-danger"></div>
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input class=" btn btn-primary" type="submit" value="Submit">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--modal of add question ends-->
+  <script src="../JS/jquery-1.8.2.min.js"></script>
+  <script src="../JS/bootstrap.min.js"></script>
+<script async type="text/javascript" src="../JS/detailedtest.js"></script>
+
+</body>
+
+</html>

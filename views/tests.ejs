@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Users data</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .btn{
+      display:inline-block;
+      font-weight:400;
+      text-align:center;
+      white-space:nowrap;
+      vertical-align:middle;
+      -webkit-user-select:none;
+      -moz-user-select:none;
+      -ms-user-select:none;
+      user-select:none;
+      border:1px solid transparent;
+      padding:.5rem .75rem;
+      font-size:1rem;
+      line-height:1.5;
+      border-radius:.25rem;
+      -webkit-transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+      transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+      transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
+    }
+    .btn-pill{
+      border-radius:3rem;padding:.5rem 1.5rem
+    }
+    .btn-lg{
+      padding:.5rem 1rem;font-size:1.25rem;line-height:1.5;border-radius:.3rem
+    }
+    .btn-sm{
+      padding:.25rem .5rem;font-size:.875rem;line-height:1.5;border-radius:.2rem
+    }
+    .btn-success{
+      color:#fff;background:#502d38 repeat-x;
+      background:#502d38 repeat-x;
+      border-color:#502d38
+    }
+    .btn-success:hover{
+      color:#000000;
+      background:#ffffff repeat-x;
+      background:#ffffff repeat-x;
+      border-color:#101010
+    }
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #customers tr:hover {background-color: #ddd;}
+    
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #502d38;
+      color: white;
+    }
+    a:link, a:visited {
+      /* background-color: #f44336; */
+      color: white;
+    }
+    </style>
+    <script type="text/javascript">
+      function disableBack() { window.history.forward(); }
+      setTimeout("disableBack()", 0);
+      window.onunload = function () { null };
+  </script>
+</head>
+<body>
+<!--====form section start====-->
+    <h2>Tests Available: </h2>
+    <!-- <h2><%= user%></h2> -->
+    <div class="table-data">
+    <table id = "customers" border="4" >
+        <tr>
+            <th>S.N</th>
+            <th>Name</th>
+            <th>Branch</th>
+            <th>Instructions</th>
+            <th>Duration</th>
+            <th>Attempt</th>
+            <!-- <th></th> -->
+        </tr>
+        <%
+        if(userData.length!=0){
+        var i=1;
+        userData.forEach(function(data,index){
+        %>
+        <tr>
+            <td><%=i; %></td>
+            <td><%=data.name %></td>
+            <td><%=data.branch %></td>
+            <td><%=data.instructions %></td>
+            <td><%=data.duration.hours %> Hrs: <%=data.duration.minutes%> Min: <%=data.duration.seconds%> Secs</td>
+            <%
+            if(stur[index].testid==false){
+            %>
+            <td><a href="/api/user/<%=data.id%>/<%=user.id%>"><button  class="btn btn-pill btn-sm btn-success" >Attempt</button></a></td>
+            <%
+            } else{
+            %>
+            <td><a href="#" ><button  class="btn btn-pill btn-sm btn-success" >Attempt</button></a></td>
+            <%
+            }
+            %>
+        </tr>
+        <%  i++; }) %>
+        <% } else{ %>
+            <tr>
+                <td colspan="7">No Data Found</td>
+            </tr>
+        <% } %>
+    </table>
+    <p id="demo"></p>
+    </div>
+</body>
+</html>

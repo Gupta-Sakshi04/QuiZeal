@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard</title>
+  <script src="../JS/jquery-1.8.2.min.js"></script>
+  <script src="../JS/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <!-- Bulma Version 0.9.0-->
+  <link rel ="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel ="stylesheet" href="/csses/bootstrap.min.css">
+</head>
+<!-- <script async type="text/javascript" src="../JS/facultyportal.js"></script>  -->
+<style>
+  .dark-mode {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  .inverted { 
+    filter: invert(1) hue-rotate(180deg);
+  }
+</style>
+<script>
+  function myFunction() {
+    console.log('here in the function')
+    let root = document.documentElement;
+    let x = document.getElementById("img");
+    root.classList.toggle("dark-mode");
+    // x.classList.toggle("inverted");
+}
+</script>
+<body class="myDIV">
+  <!-- <h1><a href='/api/user/logout'>Logout</a></h1> -->
+  <!-- START NAV -->
+  <nav class="navbar is-white">
+    <div class="container">
+      <div class="navbar-brand">
+        Student
+      </div>
+      <a href="" class="btn btn-dark">Logout</a>
+    </div>
+  </nav>
+  <!-- END NAV -->
+  <div class="container">
+    <div class="columns">
+      <div class="column is-4">
+        <aside>
+            <div class="card">
+              <img src= "/imgs/userimg.jpg"  style="border-radius: 50%;width: 75%; margin: auto; padding: 10px;" class="card-img-top">
+              <div class="card-body m-auto" >
+                <h3>Student ID Card</h3>
+            <table>
+                <tr>
+                    <td><b>Full Name   </b></td>
+                    <td>: : </td>
+                    <td> <%=user.fullName%></td>
+                </tr>
+                <tr>
+                  <td><b>Roll Number</b></td>
+                  <td>: : </td>
+                  <td> <%=user.rollNumber%></td>
+              </tr>
+                <tr>
+                    <td><b>Email-Id</b></td>
+                    <td>: : </td>
+                    <td ><%=user.email%></td>
+                </tr>
+                <tr>
+                    <td><b>Branch</b></td>
+                    <td>: : </td>
+                    <td><%=user.branch%></td>
+                </tr>
+                <tr>
+                    <td><b>Contact</b></td>
+                    <td>: : </td>
+                    <td><%=user.phoneNumber%></td>
+                </tr>
+            </table>
+              </div>
+            </div>  
+        </aside>
+      </div>
+      <div class="column is-9">
+        <section class="hero bg-dark is-small">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title text-white" id="nameprof">
+                Hi! <%=user.fullName%>
+              </h1>
+              <h2 class="subtitle text-white">
+                Hope you are having a great day!
+              </h2>
+              <a class="button is-small bg-light" onclick="myFunction()">Light | Dark</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="columns mt-auto container">
+          <!--Test/Exam card begins-->
+          
+            <div class="column is-6">
+              <a  class="text-decoration-none" href="/api/user/tests/<%=user.branch%>/<%= user._id %>">
+              <header class="card-header bg-dark">
+                <h4 class="card-header-title text-white">
+                  Test/Exam Details
+                </h4>
+              </header>
+            </a>
+          </div>
+          <!--Test/Exams card ends-->
+
+          <!--Test report card begins-->
+            <div class="column is-6">
+              <a  class="text-decoration-none" href="/api/user/tests/<%= user._id %>">
+                <header class="card-header bg-dark">
+                  <h4 class="card-header-title text-white">
+                    Marks/Reports Details
+                  </h4>
+                </header>
+              </a>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script>
+  document.getElementById("nameprof").innerHTML='Hi, '+localStorage.getItem("name")
+</script> -->
+</html>

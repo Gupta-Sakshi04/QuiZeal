@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Student Login and Registration Form</title>
+      <link rel="stylesheet" href="/csses/stylelogin.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script type="text/javascript">
+         function disableBack() { window.history.forward(); }
+         setTimeout("disableBack()", 0);
+         window.onunload = function () { null };
+     </script>
+   </head>
+   <body>
+       <% if(u.status=="Invalid Creds"){ %>
+        <div class="container"><div class="alert alert-danger">
+        Please Try Signing Up Instead or Verify Your Credentials.
+      </div></div>
+      <% } else if(u.status=="Already in Use"){ %>
+        <div class="container"><div class="alert alert-danger">
+            Please Try Login Instead(Account Already in Use).
+          </div></div>
+        <% } %>
+      <div class="wrapper">
+         <div class="title-text">
+            <div class="title login">
+               Login Form
+            </div>
+            <div class="title signup">
+               Signup Form
+            </div>
+         </div>
+         <div class="form-container">
+            <div class="slide-controls">
+               <input type="radio" name="slide" id="login" checked>
+               <input type="radio" name="slide" id="signup">
+               <label for="login" class="slide login">Login</label>
+               <label for="signup" class="slide signup">Signup</label>
+               <div class="slider-tab"></div>
+            </div>
+            <div class="form-inner">
+               <form action="/api/user/login" class="login" id="login_id" method="post" name="myloginform">
+                  <div class="field">
+                     <input type="email" name = "email" placeholder="Email Address" required>
+                  </div>
+                  <div class="field">
+                     <input type="password" name = "password" placeholder="Password" required>
+                  </div>
+                  <div class="pass-link">
+                     <a href="#">Forgot password?</a>
+                  </div>
+                  <div class="field btn">
+                     <div class="btn-layer"></div>
+                     <input type="submit" value="Login">
+                  </div>
+                  <div class="signup-link">
+                     Not a member? <a id="sign_id">Signup now</a>
+                  </div>
+               </form>
+               <form action="/api/user/register" class="signup" id="sign_id" method="post" name="RegForm" onsubmit=" return validateregistration()">
+                  <div class="field">
+                     <input type="text" name = "fullName" placeholder="Name" required>
+                  </div>
+                  <div class="field">
+                     <input type="text" name = "rollNumber" placeholder="Roll Number" required>
+                  </div>
+                  <div class="field">
+                     <input type="number" name = "phoneNumber" placeholder="Phone Number" required>
+                  </div>
+                  <div class = "select">
+                     <select name="branch" id="branchid">
+                        <option value="CSE">Computer Science</option>
+                        <option value="ECE">Electronics And Communication</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="BIOTECH">Biotechnology</option>
+                        <option value="MECH">Mechanical</option>
+                        <option value="EEE">Electrical And Electronics</option>
+                      </select>
+                  </div>
+                  <div class="field">
+                     <input type="email" name = "email" placeholder="Email Address" required>
+                  </div>
+                  <div class="field">
+                     <input type="password" name = "password" placeholder="Password" required>
+                  </div>
+                  <div class="field">
+                     <input type="password" placeholder="Confirm password" required>
+                  </div>
+                  <div class="field btn">
+                     <div class="btn-layer"></div>
+                     <input type="submit" value="Signup">
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <script>
+         function validateregistration(){
+         var name = document.forms["RegForm"]["fullName"];
+        var email = document.forms["RegForm"]["email"];
+        var phone = document.forms["RegForm"]["phoneNumber"];
+        var branch = document.forms["RegForm"]["branch"];
+        var password = document.forms["RegForm"]["password"];
+        var Cpassword = document.forms["RegForm"]["Confirm password"];
+        var roll = document.forms["RegForm"]["rollNumber"];
+  
+        if (name.value == "") {
+            window.alert("Please enter your Name.");
+            name.focus();
+            return false;
+        }
+  
+        if (roll.value == "") {
+            window.alert("Please enter your RollNumber.");
+            roll.focus();
+            return false;
+        }
+  
+        if (email.value == "") {
+            window.alert(
+              "Please enter a valid E-Mail Address.");
+            email.focus();
+            return false;
+        }
+  
+        if (phone.value == "") {
+            window.alert(
+              "Please enter your Phone Number.");
+            phone.focus();
+            return false;
+        }
+  
+        if (password.value == "") {
+            window.alert("Please enter your password");
+            password.focus();
+            return false;
+        }
+        if (password.value.length < 6 ) {
+            window.alert("Please Keep Minimum password Length: 7");
+            password.focus();
+            return false;
+        }
+        if (password.value != Cpassword.value) {
+            window.alert("Please Make sure both the Passwords Match");
+            password.focus();
+            return false;
+        }
+        return true;
+    }
+      </script>
+      <script>
+         const loginText = document.querySelector(".title-text .login");
+         const loginForm = document.querySelector("form.login");
+         const loginBtn = document.querySelector("label.login");
+         const signupBtn = document.querySelector("label.signup");
+         const signupLink = document.querySelector("form .signup-link a");
+         signupBtn.onclick = (()=>{
+           loginForm.style.marginLeft = "-50%";
+           loginText.style.marginLeft = "-50%";
+         });
+         loginBtn.onclick = (()=>{
+           loginForm.style.marginLeft = "0%";
+           loginText.style.marginLeft = "0%";
+         });
+         signupLink.onclick = (()=>{
+           signupBtn.click();
+           return false;
+         });
+      </script>
+   </body>
+</html>

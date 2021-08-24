@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faculty Dashboard</title>
+  <script src="../JS/jquery-1.8.2.min.js"></script>
+  <script src="../JS/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+</head>
+<style>
+  .dark-mode {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  .inverted {
+    filter: invert(1) hue-rotate(180deg);
+  }
+</style>
+<script>
+  function myFunction() {
+    console.log('here in the function')
+    let root = document.documentElement;
+    let x = document.getElementById("img");
+    root.classList.toggle("dark-mode");
+    // x.classList.toggle("inverted");
+  }
+</script>
+
+<body class="myDIV">
+  <!-- START NAV -->
+  <nav class="navbar is-white">
+    <div class="container">
+      <div class="navbar-brand">
+        Faculty
+      </div>
+      <a class="bg-dark btn text-white">Logout</a>
+    </div>
+  </nav>
+  <!-- END NAV -->
+  <div class="container">
+    <div class="columns">
+      <div class="column is-4">
+        <aside>
+            <div class="card">
+              <img src="../IMAGES/userimg.jpg"  style="border-radius: 50%; width: 80%; margin: auto; padding: 10px;" class="card-img-top" alt="...">
+              <div class="card-body m-auto" >
+                <h1 id="profName"></h1>
+            <table>
+                <tr>
+                    <td><h5>Prof ID</h5></td>
+                    <td>: : </td>
+                    <td id="profId"></td>
+                </tr>
+                <tr>
+                    <td><h5>Email-Id</h5></td>
+                    <td>: : </td>
+                    <td id="email"></td>
+                </tr>
+                <tr>
+                    <td><h5>Branch</h5></td>
+                    <td>: : </td>
+                    <td id="branch"></td>
+                </tr>
+                <tr>
+                    <td><h5>Contact</h5></td>
+                    <td>: : </td>
+                    <td id="phoneNumber"></td>
+                </tr>
+            </table>
+              </div>
+            </div>  
+        </aside>
+      </div>
+
+      <div class="column is-8">
+        <section class="hero bg-dark small">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title text-white" id="nameprof"></h1>
+              <h2 class="subtitle text-white">
+                Hope you are having a great day!
+              </h2>
+              <a class="button is-small bg-light" onclick="myFunction()">Light | Dark</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="columns mt-auto container">
+          <!--Test/Exam card begins-->
+          <div class="column">
+            <a class="text-decoration-none" href="viewtests.html">
+              <header class="card-header badge-dark">
+                <h4 class="card-header-title text-white is-centered">
+                  Test/Exam Details
+                </h4>
+              </header>
+            </a>
+          </div>
+          <!--Test/Exams card ends-->
+
+          <!-- <div class="column">
+            <a class="text-decoration-none" href="add_test.html">
+              <header class="card-header bg-secondary">
+                <h4 class="card-header-title text-white is-centered">
+                  Add New Test
+                </h4>
+              </header>
+            </a>
+          </div> -->
+
+        </div>
+
+        <div class="columns mt-auto container">
+          <!--Test/Exam card begins-->
+          <div class="column">
+            <a class="text-decoration-none" href="add_test.html">
+              <header class="card-header bg-dark">
+                <h4 class="card-header-title text-white is-centered">
+                  Add New Test
+                </h4>
+              </header>
+            </a>
+          </div>
+          <!--Test/Exams card ends-->
+        </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+<script>
+  document.getElementById("nameprof").innerHTML = 'Hi, ' + localStorage.getItem("profName")
+  document.getElementById("profName").innerHTML = localStorage.getItem("profName")
+  document.getElementById("email").innerHTML = localStorage.getItem("email")
+  document.getElementById("phoneNumber").innerHTML = localStorage.getItem("phoneNumber")
+  document.getElementById("branch").innerHTML = localStorage.getItem("branch")
+  document.getElementById("profId").innerHTML = localStorage.getItem("profId")
+</script>
+
+</html>

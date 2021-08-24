@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard</title>
+
+  <script src="../JS/jquery-1.8.2.min.js"></script>
+  <script src="../JS/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+  <script async type="text/javascript" src="../JS/admin.js"></script>
+</head>
+
+<style>
+  .dark-mode {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  .inverted {
+    filter: invert(1) hue-rotate(180deg);
+  }
+</style>
+
+<body class="myDIV">
+  <!-- START NAV -->
+  <nav class="navbar is-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item brand-text" href="/adminboard">
+          Admin
+        </a>
+      </div>
+      <a class="bg-dark btn text-white">Logout</a>
+    </div>
+  </nav>
+  <!-- END NAV -->
+
+  <div class="container">
+    <div class="columns">
+      <div class="column is-3 ">
+        <aside class="menu is-hidden-mobile">
+          <p class="menu-label">
+            Administration
+          </p>
+          <ul class="menu-list">
+            <li><a>Team Settings</a></li>
+            <li>
+              <a>Manage Your Team</a>
+              <ul>
+                <li><a href="displaystudents.html">Students</a></li>
+                <li><a href="displayfaculty.html">Faculty</a></li>
+                <li><a data-toggle="modal" data-target="#addstudentmodal">Add a Student</a></li>
+                <li><a data-toggle="modal" data-target="#deletestudent">Remove a Student</a></li>
+                <li><a data-toggle="modal" data-target="#addfacultymodal">Add a Faculty</a></li>
+                <li><a data-toggle="modal" data-target="#deletefaculty">Remove a Faculty</a></li>
+              </ul>
+            </li>
+            <p class="menu-label">
+              Pending Approvals
+            </p>
+            <li><a>Student Approvals</a></li>
+            <li><a>Faculty Approvals</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="column is-9">
+        <section class="hero bg-dark welcome is-small">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title text-white">
+                Hello, Admin.
+              </h1>
+              <h2 class="subtitle text-white">
+                Hope you are having a great day!
+              </h2>
+              <a class="button is-small bg-light" onclick="myFunction()">Light | Dark</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-tiles">
+          <div class="tile is-ancestor has-text-centered">
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <p class="title" id="NStd"></p>
+                <p class="subtitle">Students</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <p class="title" id="NFac"></p>
+                <p class="subtitle">Faculty</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <p class="title" id="NStdApp"></p>
+                <p class="subtitle">Student Approvals</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <p class="title" id="NFacApp"></p>
+                <p class="subtitle">Faculty Approvals</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="columns">
+          <!--Student Approve card begins-->
+          <div class="column is-6">
+            <div class="card events-card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Student Approvals
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-table">
+                <div class="content">
+                  <table class="table is-fullwidth is-striped">
+                    <tbody id="myData">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Student Approve card ends-->
+
+          <!--Faculty approve card begins-->
+          <div class="column is-6">
+            <div class="card events-card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Faculty Approvals
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-table">
+                <div class="content">
+                  <table class="table is-fullwidth is-striped">
+                    <tbody id="FacAppData">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Faculty Approve card ends-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--AddStudent Modal-->
+  <div class="modal fade" id="addstudentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">LogIn</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&minus;</button>
+        </div>
+        <div class="modal-body">
+          <form action="" class="signup" id="sign_id" name="RegForm" onsubmit=" return validateregistration()">
+            <div class="form-group">
+              <input class="form-control" type="text" name="fullName" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="rollNumber" placeholder="Roll Number" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="number" name="phoneNumber" placeholder="Phone Number" required>
+            </div>
+            <div class="select mb-3">
+              <select name="branch" id="branchid">
+                <option value="CSE">Computer Science</option>
+                <option value="ECE">Electronics And Communication</option>
+                <option value="IT">Information Technology</option>
+                <option value="BIOTECH">Biotechnology</option>
+                <option value="MECH">Mechanical</option>
+                <option value="EEE">Electrical And Electronics</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="password" name="password" placeholder="Password" required>
+            </div>
+            <div id="error_reg" class="text-danger"></div>
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input class=" btn btn-primary" type="submit" value="Signup">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Add Student Modal Ends-->
+
+  <!--Add faculty modal begins-->
+  <div class="modal fade" id="addfacultymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add a Faculty Member</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&minus;</button>
+        </div>
+        <div class="modal-body">
+          <form action="" class="signup" id="add_fac" name="Fac_RegForm" onsubmit=" return validatefaculty()">
+            <div class="form-group">
+              <input class="form-control" type="text" name="profName" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="profId" placeholder="Prof-ID" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="number" name="phoneNumber" placeholder="Phone Number" required>
+            </div>
+            <div class="select mb-3">
+              <select name="branch" id="branch-id">
+                <option value="CSE">Computer Science</option>
+                <option value="ECE">Electronics And Communication</option>
+                <option value="IT">Information Technology</option>
+                <option value="BIOTECH">Biotechnology</option>
+                <option value="MECH">Mechanical</option>
+                <option value="EEE">Electrical And Electronics</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="password" name="password" placeholder="Password" required>
+            </div>
+            <div id="error_reg_fac" class="text-danger"></div>
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input class=" btn btn-primary" type="submit" value="Signup">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Add faculty modal ends-->
+
+  <!--Remove Student modal begins-->
+  <div class="modal fade" id="deletestudent" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Remove a Student</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&minus;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="roll">Enter Roll Number of the Student to be Removed: </label>
+            <input type="text" class="form-control" id="roll" name="roll">
+          </div>
+        </div>
+        <div id="error"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deletebyroll()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--remove student modal ends-->
+
+  <!--Remove faculty modal starts-->
+  <div class="modal fade" id="deletefaculty" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Remove a Faculty Member</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&minus;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="roll">Enter Prof-ID of the Faculty to be Removed: </label>
+            <input type="text" class="form-control" id="profId" name="profId">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deletebyprofid()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Remove faculty modal ends-->
+</body>
+
+</html>
